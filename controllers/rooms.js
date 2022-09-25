@@ -1,23 +1,25 @@
 const cloudinary = require("../middleware/cloudinary");
+const Company = require("../models/Company");
+const Post = require("../models/Post");
 const Room = require("../models/Room");
 
 module.exports = {
-  // getProfile: async (req, res) => {
-  //   try {
-  //     const posts = await Room.find({ user: req.user.id });
-  //     res.render("profile.ejs", { posts: posts, user: req.user });
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // },
-  // getFeed: async (req, res) => {
-  //   try {
-  //     const posts = await Room.find().sort({ createdAt: "desc" }).lean();
-  //     res.render("feed.ejs", { posts: posts });
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // },
+  getProfile: async (req, res) => {
+    try {
+      const posts = await Room.find({ user: req.user.id });
+      res.render("profile.ejs", { posts: posts, user: req.user });
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  getRooms: async (req, res) => {
+    try {
+      const rooms = await Room.find().sort({ createdAt: "desc" });
+      res.render("room.ejs", { rooms });
+    } catch (err) {
+      console.log(err);
+    }
+  },
   getRoom: async (req, res) => {
     try {
       const post = await Room.findById(req.params.id);
@@ -28,19 +30,23 @@ module.exports = {
   },
   createRoom: async (req, res) => {
     try {
-      // Upload image to cloudinary router.post("/createPost", postsController.createPost);
-      //const result = await cloudinary.uploader.upload(req.file.path);
+      // Upload image to cloudinary 
+      //if(req.file){
+        //router.post("/createPost", postsController.createPost);
+        //const result = await cloudinary.uploader.upload(req.file.path);
+      //}
+    console.log(req.body);
 
       await Room.create({
         roomNumber: req.body.roomNumber,
-        image: result.secure_url,
-        cloudinaryId: result.public_id,
+        // image: result.secure_url,
+        // cloudinaryId: result.public_id,
         roomType: req.body.roomType,
         roomRate: req.body.roomRate,
         user: req.user.id,
       });
       console.log("Room has been added!");
-      res.redirect("/profile");
+      res.redirect("/room");
     } catch (err) {
       console.log(err);
     }
