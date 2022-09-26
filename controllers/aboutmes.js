@@ -49,16 +49,27 @@ module.exports = {
   createAboutme: async (req, res) => {
     try {
       // Upload image to cloudinary
-      const result = await cloudinary.uploader.upload(req.file.path);
 
-      await Aboutme.create({
-        name: req.body.name,
-        about: req.body.about,
-        image: result.secure_url,
-        cloudinaryId: result.public_id,
-        skills: req.body.skills,
-        user: req.user.id,
-      });
+      if(req?.file?.path){
+        const result = await cloudinary.uploader.upload(req.file.path);
+        await Aboutme.create({
+          name: req.body.name,
+          about: req.body.about,
+          image: result.secure_url,
+          cloudinaryId: result.public_id,
+          skills: req.body.skills,
+          user: req.user.id,
+        });
+      }
+else{
+  await Aboutme.create({
+    name: req.body.name,
+    about: req.body.about,
+    skills: req.body.skills,
+    user: req.user.id,
+  });
+}
+      
       console.log("About me has been added!");
       res.redirect("/profile");
     } catch (err) {
