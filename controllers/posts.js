@@ -33,11 +33,12 @@ module.exports = {
 
       await Post.create({
         title: req.body.title,
+        caption: req.body.caption,
         image: result.secure_url,
         cloudinaryId: result.public_id,
-        caption: req.body.caption,
-        likes: 0,
         rate: req.body.rate,
+        skill: req.body.skill,
+        likes: 0,
         user: req.user.id,
       });
       console.log("Post has been added!");

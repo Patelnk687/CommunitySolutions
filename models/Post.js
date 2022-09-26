@@ -22,17 +22,14 @@ const PostSchema = new mongoose.Schema({
     required: true,
   },
   rate: {
-    type: Number,
+    type: String,
     required: false,
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-  },
+
   aboutme: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Aboutme",
