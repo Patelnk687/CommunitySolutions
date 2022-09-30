@@ -1,4 +1,4 @@
-const cloudinary = require("../middleware/cloudinary");
+//const cloudinary = require("../middleware/cloudinary");
 const Aboutme = require("../models/Aboutme");
 const Post = require("../models/Post");
 const Comment = require("../models/Comment");
@@ -8,8 +8,7 @@ module.exports = {
     try {
       const posts = await Post.find({ user: req.user.id });
       const user = await Aboutme.findOne({user:req.user.id});
-      res.render("profile.ejs", { posts: posts, user: req.user, aboutme: user });
-      console.log(user)
+      res.render("profile.ejs", { posts: posts, user: req.user,aboutme:user });
     } catch (err) {
       console.log(err);
     }
@@ -31,36 +30,19 @@ module.exports = {
       console.log(err);
     }
   },
-  createPost: async (req, res) => {
+  createComment: async (req, res) => {
     try {
-      // Upload image to cloudinary
-      // const result = await cloudinary.uploader.upload(req.file.path);
-      if(req?.file?.path){
-        const result = await cloudinary.uploader.upload(req.file.path);
-        await Post.create({
-        title: req.body.title,
-        caption: req.body.caption,
-        image: result.secure_url,
-        cloudinaryId: result.public_id,
-        rate: req.body.rate,
-        skill: req.body.skill,
+     
+
+      await Comment.create({
+        comment: req.body.comment,
         likes: 0,
         user: req.user.id,
+        post: req.params.id,    
+        // grabs id from url and creates post
       });
-    }
-    else{
-      await Post.create({
-        title: req.body.title,
-        caption: req.body.caption,
-        rate: req.body.rate,
-        skill: req.body.skill,
-        likes: 0,
-        user: req.user.id,
-      });
-    }
-    
-      console.log("Post has been added!");
-      res.redirect("/profile");
+      console.log("Comment has been added!");
+      res.redirect("/post/"+req.params.id);
     } catch (err) {
       console.log(err);
     }
