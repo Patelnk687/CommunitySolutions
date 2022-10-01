@@ -35,5 +35,6 @@
   "bugs": {
     "url": "https://github.com/Patelnk687/binary-upload-boom/issues"
   },
-  "homepage": "https://github.com/Patelnk687/binary-upload-boom#readme"
+  "homepage": "https://github.com/Patelnk687/binary-upload-boom#readme",
+  "devDependencies": {}
 }
