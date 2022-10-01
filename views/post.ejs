@@ -25,12 +25,44 @@
       </div>
     </div>
     <div class="col-3 mt-5">
-      <p><%= post.title %></p>
+      
       <p><%= post.caption %></p>
-      <p><%= post.rate %></p>
+      <p>Offer : <%= post.rate %></p>
+      <p>Contact : <%= post.createdBy %></p> 
     </div>
+
+<!-- adds the form for comments -->
+<div class="mt-5">
+  <h2>Add a comment</h2>
+  <form action="/comment/createComment/<%=post._id%>" method="POST">
+    <div class="mb-3">
+        <label for="comment" class="form-label">Comment</label>
+        <input type="text" class="form-control" id="comment" name="comment">
+    </div>
+   
+    <button type="submit" class="btn btn-primary" >Submit</button>
+  </form>
+</div>
+    <!-- renders all the comments -->
+    <% for(var i=0; i<comments.length; i++) {%>
+      <li class="col-6 justify-content-between mt-5">
+         <%= comments[i].createdBy%> says: <%= comments[i].comment%>
+          <% if(comments[i].createdById == user.id) {%>
+     
+      <form
+          action="/comment/deleteComment/<%= post.id %>/<%= comments[i]._id %>?_method=DELETE"
+          method="POST"
+          class="col-3"
+        >
+          <button class="btn btn-outline-danger" type="submit">Delete</button>
+        </form>
+        <% } %>
+      </li>
+    <% } %>
+
     <div class="col-6 mt-5">
       <a class="btn btn-primary" href="/profile">Return to Profile</a>
+      <p> <br> </p>
       <a class="btn btn-primary" href="/feed">Return to Feed</a>
     </div>
   </div>
