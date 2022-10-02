@@ -11,7 +11,7 @@ module.exports = {
       const userz = await Aboutme.findOne({user:req.user.id});
       const users = await User.find({post: req.params.id});
       res.render("profile.ejs", { posts: posts, user: req.user, aboutme: userz , users: users});
-      console.log(users)
+      
     } catch (err) {
       console.log(err);
     }
@@ -31,7 +31,7 @@ module.exports = {
       const users = await User.find({post: req.params.id});     
       const userz = await Aboutme.findOne({user:req.user.id});
       res.render("post.ejs", { post: post, user: req.user ,aboutme: userz , comments: comments, users: users});
-      console.log(users)
+     
     } catch (err) {
       console.log(err);
     }

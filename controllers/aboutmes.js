@@ -1,7 +1,8 @@
 const cloudinary = require("../middleware/cloudinary");
-
 const Aboutme = require("../models/Aboutme");
-
+const Post = require("../models/Post");
+const Comment = require("../models/Comment");
+const User = require("../models/User");
 module.exports = {
   // getCompany: async (req, res) => {
   //   try {
