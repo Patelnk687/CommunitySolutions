@@ -8,9 +8,9 @@ module.exports = {
   getProfile: async (req, res) => {
     try {
       const posts = await Post.find({ user: req.user.id });
-      const user = await Aboutme.findOne({user:req.user.id});
+      const userz = await Aboutme.findOne({user:req.user.id});
       const users = await User.find({post: req.params.id});
-      res.render("profile.ejs", { posts: posts, user: req.user, aboutme: user , users: users});
+      res.render("profile.ejs", { posts: posts, user: req.user, aboutme: userz , users: users});
       console.log(users)
     } catch (err) {
       console.log(err);
@@ -29,7 +29,8 @@ module.exports = {
       const post = await Post.findById(req.params.id);
       const comments = await Comment.find({post: req.params.id}).sort({ createdAt: "asc" }).lean(); 
       const users = await User.find({post: req.params.id});     
-      res.render("post.ejs", { post: post, user: req.user , comments: comments, users: users});
+      const userz = await Aboutme.findOne({user:req.user.id});
+      res.render("post.ejs", { post: post, user: req.user ,aboutme: userz , comments: comments, users: users});
       console.log(users)
     } catch (err) {
       console.log(err);

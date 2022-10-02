@@ -55,6 +55,7 @@ module.exports = {
         await Aboutme.create({
           name: req.body.name,
           about: req.body.about,
+          contact: req.body.contact,
           image: result.secure_url,
           cloudinaryId: result.public_id,
           skills: req.body.skills,

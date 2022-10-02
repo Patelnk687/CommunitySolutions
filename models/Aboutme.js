@@ -17,6 +17,9 @@ const AboutmeSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  contact: {
+    type: String,
+  },
   skills: {
     type: String,
     required: true,
